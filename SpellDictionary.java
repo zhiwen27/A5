@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class SpellDictionary implements SpellingOperations{
@@ -70,22 +71,28 @@ public class SpellDictionary implements SpellingOperations{
         for(int i = 1; i < query.length(); i++){
             alternatives.add(query.substring(0, i) + " " + query.substring(i, query.length()));
         }
-        
+
         // check in the dictionary
-        for(String str: alternatives){
-            if(!this.storage.contains(str)){
-                alternatives.remove(str);
+        for(int i = 0; i < alternatives.size(); i++){
+            Boolean correct = false;
+            Iterator<String> iterator = this.storage.iterator();
+            while(iterator.hasNext()){
+                if (alternatives.get(i).equals(iterator.next())){
+                    correct = true;
+                }
             }
-            
+            if (!correct){
+                alternatives.remove(alternatives.get(i));
+            }
         }
-        // for(String str: alternatives){
-        //     System.err.println(str);
-        // }
+        for(String str: alternatives){
+            System.err.println(str);
+        }
         return alternatives;
     }
 
     public static void main(String[] args) {
         SpellDictionary a = new SpellDictionary("words.txt");
-        a.nearMisses("abcd");
+        a.nearMisses("qest");
     }
 }

@@ -98,7 +98,7 @@ The second mode of operation is invoked like this (PowerShell users, please see 
 
     java SpellChecker < sonnet.txt
 
-The `<` in this mode indicates that we are sending the contents of the file `sonnet.txt` to the program for spell checking (this is called [input redirection](https://www.science.smith.edu/~nhowe/teaching/csc210/Tutorials/redir.php).  You will know that this mode has been invoked because `args.length` in `main` will be 0 (unlike the previous mode).  Detecting this, your program then will read the file contents using a `Scanner` taking input from `System.in`.
+The `<` in this mode indicates that we are sending the contents of the file `sonnet.txt` to the program for spell checking (this is called [input redirection](https://www.science.smith.edu/~nhowe/teaching/csc210/Tutorials/redir.php).)  You will know that this mode has been invoked because `args.length` in `main` will be 0 (unlike the previous mode).  Detecting this, your program then will read the file contents using a `Scanner` taking input from `System.in`.
 
 In this mode of operation, the program should read individual words from the input file and check their spelling.  If the word is spelled correctly, the program should **silently** move on to the next word -- it shouldn't print a message. On the other hand, if a word is misspelt, your program should print a message and offer suggestions.  This message should happen *only* the first time a particular misspelling is encountered, even if the same misspelling appears several times. Think critically about which data structures might help you make this happen efficiently.
 
