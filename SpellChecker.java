@@ -30,7 +30,7 @@ public class SpellChecker {
     public static void modeReadFile(){
         SpellDictionary dict = new SpellDictionary("words.txt");
         Scanner sc = new Scanner(System.in);
-        // making sure that the ``Scanner`` skips over punctuation marks.
+        // making sure that the ``Scanner`` skips over punctuation marks except for " ' "
         HashSet<String> inputStorage = new HashSet<>();
         while (sc.hasNextLine()) {
             String temp = sc.next();
@@ -64,7 +64,6 @@ public class SpellChecker {
             SpellChecker.modeReadFile();
         }
         else {
-            // Otherwise, echo what was read in for now
             String inputLine = "";
             Scanner scanner = new Scanner(new StringReader(args[0]));
             while (scanner.hasNext()) {
