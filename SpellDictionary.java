@@ -62,9 +62,8 @@ public class SpellDictionary implements SpellingOperations{
 
         // Transpositions: Swap two adjacent characters.
         for(int i = 0; i < query.length() - 1; i++){
-            String temp = "";
             Character tempElement = query.charAt(i);
-            temp = query.substring(0, i) + query.charAt(i + 1) + query.substring(i + 1, query.length());
+            String temp = query.substring(0, i) + query.charAt(i + 1) + query.substring(i + 1, query.length());
             String swapped = temp.substring(0, i + 1) + tempElement + temp.substring(i + 2, query.length());
             if (!alternatives.contains(swapped)){
                 alternatives.add(swapped);

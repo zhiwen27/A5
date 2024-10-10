@@ -39,6 +39,7 @@ public class SpellChecker {
                 inputStorage.add(cleanedTemp);
             }
         }
+        // ❗️ " ' " in words: grow'st?
         Iterator<String> iterator = inputStorage.iterator();
         while(iterator.hasNext()){
             String s = iterator.next();
