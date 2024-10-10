@@ -72,23 +72,14 @@ public class SpellDictionary implements SpellingOperations{
             alternatives.add(query.substring(0, i) + " " + query.substring(i, query.length()));
         }
 
-        // check in the dictionary
+        // return the ones that are contained in the dictionary
+        ArrayList<String> returning = new ArrayList<>();
         for(int i = 0; i < alternatives.size(); i++){
-            Boolean correct = false;
-            Iterator<String> iterator = this.storage.iterator();
-            while(iterator.hasNext()){
-                if (alternatives.get(i).equals(iterator.next())){
-                    correct = true;
-                }
-            }
-            if (!correct){
-                alternatives.remove(alternatives.get(i));
+            if(this.storage.contains(alternatives.get(i))){
+                returning.add(alternatives.get(i));
             }
         }
-        for(String str: alternatives){
-            System.err.println(str);
-        }
-        return alternatives;
+        return returning;
     }
 
     public static void main(String[] args) {

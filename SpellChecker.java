@@ -20,11 +20,13 @@ public class SpellChecker {
         SpellDictionary dict = new SpellDictionary("words.txt");
         for(String s: input){
             if (!dict.containsWord(s)){
-                System.err.println("Suggestions:");
+                System.err.println("Not found: " + s);
+                System.err.print("Suggestions: ");
                 ArrayList<String> alternatives = dict.nearMisses(s);
                 for(String a: alternatives){
-                    System.err.println(a);
+                    System.err.print(a + " ");
                 }
+                System.err.println();
             }
             else{
                 System.err.println("'" + s + "' is spelled correctly.");
