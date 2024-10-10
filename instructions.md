@@ -106,7 +106,8 @@ You have some freedom about how to arrange the code into methods within this cla
 
 Once you have your program working, you will want to test it out. Here's a sonnet in Shakespeare's original spelling that would make a good candidate:
 
-<pre style="left-margin:0.5in; font-style:italic">Shall I compare thee to a Summers day?
+<pre style="left-margin:0.5in; font-style:italic">
+Shall I compare thee to a Summers day?
 Thou art more louely and more temperate:
 Rough windes do shake the darling buds of Maie,
 And Sommers lease hath all too short a date:

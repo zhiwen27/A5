@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class SpellDictionary implements SpellingOperations{
@@ -12,11 +11,11 @@ public class SpellDictionary implements SpellingOperations{
         Scanner file = null;
         try {
             file = new Scanner(new File(input));
-            // making sure that the ``Scanner`` skips over punctuation marks.
         } catch (FileNotFoundException e) {
             System.err.println("Cannot locate file.");
             System.exit(-1);
         }
+        // ❗️ what is " 's " in the dic?
         while (file.hasNextLine()) {
             storage.add(file.next());
         }
