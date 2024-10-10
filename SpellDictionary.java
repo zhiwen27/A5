@@ -15,14 +15,13 @@ public class SpellDictionary implements SpellingOperations{
             System.err.println("Cannot locate file.");
             System.exit(-1);
         }
-        // ❗️ what is " 's " in the dic?
         while (file.hasNextLine()) {
             storage.add(file.next());
         }
         file.close();
     }
     public boolean containsWord(String query){
-        // convert the string to lower case
+        // ❗️  do we need to worry about lower case?
         query = query.toLowerCase();
         for (String s: this.storage){
             if (s.equals(query)){
@@ -33,14 +32,14 @@ public class SpellDictionary implements SpellingOperations{
     }
     public ArrayList<String> nearMisses(String query){
         ArrayList<String> alternatives = new ArrayList<>();
-        // convert the string to lower case
+        // ❗️  do we need to worry about lower case?
         query = query.toLowerCase();
         // Deletions: Delete one letter from the word.
         for(int i = 0; i < query.length(); i++){
             alternatives.add(query.substring(0, i) + query.substring(i+1, query.length()));
         }
 
-        // Insertions: Insert one letter into the word at any point.
+        // Insertions: Insert one letter of lower case into the word at any point.
         for(int i = 0; i < query.length() + 1; i++){
             for(int j = 97; j < 123; j++){
                 String temp = query.substring(0, i) + (char)j + query.substring(i, query.length());
@@ -48,7 +47,15 @@ public class SpellDictionary implements SpellingOperations{
             }
         }
 
-        // Substitutions: Replace one character with another. 
+        // Insertions: Insert one letter of upper case into the word at any point.
+        // for(int i = 0; i < query.length() + 1; i++){
+        //     for(int j = 65; j < 91; j++){
+        //         String temp = query.substring(0, i) + (char)j + query.substring(i, query.length());
+        //         alternatives.add(temp);
+        //     }
+        // }
+
+        // Substitutions: Replace one character with another in lower case. 
         for(int i = 0; i < query.length(); i++){
             for(int j = 97; j < 123; j++){
                 if ((char)j != query.charAt(i)){ // would replace with another character
@@ -56,6 +63,15 @@ public class SpellDictionary implements SpellingOperations{
                 }
             }
         }
+
+        // Substitutions: Replace one character with another in upper case. 
+        // for(int i = 0; i < query.length(); i++){
+        //     for(int j = 65; j < 91; j++){
+        //         if ((char)j != query.charAt(i)){ // would replace with another character
+        //             alternatives.add(query.substring(0, i) + (char)j + query.substring(i + 1, query.length()));
+        //         }
+        //     }
+        // }
 
         // Transpositions: Swap two adjacent characters.
         for(int i = 0; i < query.length() - 1; i++){
@@ -71,6 +87,12 @@ public class SpellDictionary implements SpellingOperations{
             alternatives.add(query.substring(0, i) + " " + query.substring(i, query.length()));
         }
 
+        // Splits: Divide the word into two legal words. For this kind of near miss, the pair of words together should be recorded
+        // as a single entry, with a " ' " between them. 
+        for(int i = 1; i < query.length(); i++){
+            alternatives.add(query.substring(0, i) + "'" + query.substring(i, query.length()));
+        }
+
         // return the ones that are contained in the dictionary
         ArrayList<String> returning = new ArrayList<>();
         for(int i = 0; i < alternatives.size(); i++){
@@ -83,6 +105,6 @@ public class SpellDictionary implements SpellingOperations{
 
     public static void main(String[] args) {
         SpellDictionary a = new SpellDictionary("words.txt");
-        a.nearMisses("qest");
+        a.nearMisses("ab");
     }
 }

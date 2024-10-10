@@ -38,7 +38,7 @@ public class SpellChecker {
                 Hashtable<String,Integer> inputStorage = new Hashtable<>();
                 while (sc.hasNextLine()) {
                     String temp = sc.next();
-                    String cleanedTemp = temp.replaceAll("\\p{Punct}", "");
+                    String cleanedTemp = temp.replaceAll("(?!['])\\p{Punct}", "");
                     if (inputStorage.containsKey(cleanedTemp)){
                         inputStorage.put(cleanedTemp, inputStorage.get(cleanedTemp) + 1);
                     }
@@ -50,11 +50,11 @@ public class SpellChecker {
                 while(enumeration.hasMoreElements()){
                     String s = enumeration.nextElement();
                     if (!dict.containsWord(s)){
-                        System.out.println("Misspelled: " + s);
+                        System.out.println("Not found: " + s);
                         System.out.print("Suggestions: ");
                         ArrayList<String> returning = dict.nearMisses(s);
                         if (returning.size() == 0){
-                            System.out.print("none");
+                            System.out.println("none");
                         }
                         else{
                             for(String a: returning){
