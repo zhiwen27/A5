@@ -31,6 +31,7 @@ public class SpellDictionary implements SpellingOperations{
         return false;
     }
     public ArrayList<String> nearMisses(String query){
+        // ❗️ can use  hashset<String>
         ArrayList<String> alternatives = new ArrayList<>();
         // ❗️  do we need to worry about lower case?
         query = query.toLowerCase();

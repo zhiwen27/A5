@@ -35,20 +35,17 @@ public class SpellChecker {
                 File file = new File("sonnet.txt");
                 Scanner sc = new Scanner(file);
                 // making sure that the ``Scanner`` skips over punctuation marks.
-                Hashtable<String,Integer> inputStorage = new Hashtable<>();
+                HashSet<String> inputStorage = new HashSet<>();
                 while (sc.hasNextLine()) {
                     String temp = sc.next();
                     String cleanedTemp = temp.replaceAll("(?!['])\\p{Punct}", "");
-                    if (inputStorage.containsKey(cleanedTemp)){
-                        inputStorage.put(cleanedTemp, inputStorage.get(cleanedTemp) + 1);
-                    }
-                    else{
-                        inputStorage.put(cleanedTemp,1);
+                    if (!inputStorage.contains(cleanedTemp)){
+                        inputStorage.add(cleanedTemp);
                     }
                 }
-                Enumeration<String> enumeration = inputStorage.keys();
-                while(enumeration.hasMoreElements()){
-                    String s = enumeration.nextElement();
+                Iterator<String> iterator = inputStorage.iterator();
+                while(iterator.hasNext()){
+                    String s = iterator.next();
                     if (!dict.containsWord(s)){
                         System.out.println("Not found: " + s);
                         System.out.print("Suggestions: ");
