@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.StringReader;
 import java.util.*;
 
@@ -28,44 +26,42 @@ public class SpellChecker {
             }
         }
     }
-    public static void main(String[] args) {
+
+    public static void modeReadFile(){
         SpellDictionary dict = new SpellDictionary("words.txt");
-        if (args.length == 0) {
-            try {
-                File file = new File("sonnet.txt");
-                Scanner sc = new Scanner(file);
-                // making sure that the ``Scanner`` skips over punctuation marks.
-                HashSet<String> inputStorage = new HashSet<>();
-                while (sc.hasNextLine()) {
-                    String temp = sc.next();
-                    String cleanedTemp = temp.replaceAll("(?!['])\\p{Punct}", "");
-                    if (!inputStorage.contains(cleanedTemp)){
-                        inputStorage.add(cleanedTemp);
-                    }
-                }
-                Iterator<String> iterator = inputStorage.iterator();
-                while(iterator.hasNext()){
-                    String s = iterator.next();
-                    if (!dict.containsWord(s)){
-                        System.out.println("Not found: " + s);
-                        System.out.print("Suggestions: ");
-                        ArrayList<String> returning = dict.nearMisses(s);
-                        if (returning.size() == 0){
-                            System.out.println("none");
-                        }
-                        else{
-                            for(String a: returning){
-                                System.out.print(a + " ");
-                            }
-                            System.out.println();
-                        }
-                    }
-                }
-                sc.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("Cannot locate file.");
-                System.exit(-1);
+        Scanner sc = new Scanner(System.in);
+        // making sure that the ``Scanner`` skips over punctuation marks.
+        HashSet<String> inputStorage = new HashSet<>();
+        while (sc.hasNextLine()) {
+            String temp = sc.next();
+            String cleanedTemp = temp.replaceAll("(?!['])\\p{Punct}", "");
+            if (!inputStorage.contains(cleanedTemp)){
+                inputStorage.add(cleanedTemp);
             }
+        }
+        Iterator<String> iterator = inputStorage.iterator();
+        while(iterator.hasNext()){
+            String s = iterator.next();
+            if (!dict.containsWord(s)){
+                System.out.println("Not found: " + s);
+                System.out.print("Suggestions: ");
+                ArrayList<String> returning = dict.nearMisses(s);
+                if (returning.size() == 0){
+                    System.out.println("none");
+                }
+                else{
+                    for(String a: returning){
+                        System.out.print(a + " ");
+                    }
+                    System.out.println();
+                }
+            }
+        }
+        sc.close();
+    }
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            SpellChecker.modeReadFile();
         }
         else {
             // Otherwise, echo what was read in for now

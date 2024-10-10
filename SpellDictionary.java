@@ -16,12 +16,11 @@ public class SpellDictionary implements SpellingOperations{
             System.exit(-1);
         }
         while (file.hasNextLine()) {
-            storage.add(file.next());
+            storage.add(file.next().toLowerCase());
         }
         file.close();
     }
     public boolean containsWord(String query){
-        // ❗️  do we need to worry about lower case?
         query = query.toLowerCase();
         for (String s: this.storage){
             if (s.equals(query)){
@@ -33,7 +32,6 @@ public class SpellDictionary implements SpellingOperations{
     public ArrayList<String> nearMisses(String query){
         // ❗️ can use  hashset<String>
         ArrayList<String> alternatives = new ArrayList<>();
-        // ❗️  do we need to worry about lower case?
         query = query.toLowerCase();
         // Deletions: Delete one letter from the word.
         for(int i = 0; i < query.length(); i++){
@@ -48,14 +46,6 @@ public class SpellDictionary implements SpellingOperations{
             }
         }
 
-        // Insertions: Insert one letter of upper case into the word at any point.
-        // for(int i = 0; i < query.length() + 1; i++){
-        //     for(int j = 65; j < 91; j++){
-        //         String temp = query.substring(0, i) + (char)j + query.substring(i, query.length());
-        //         alternatives.add(temp);
-        //     }
-        // }
-
         // Substitutions: Replace one character with another in lower case. 
         for(int i = 0; i < query.length(); i++){
             for(int j = 97; j < 123; j++){
@@ -64,15 +54,6 @@ public class SpellDictionary implements SpellingOperations{
                 }
             }
         }
-
-        // Substitutions: Replace one character with another in upper case. 
-        // for(int i = 0; i < query.length(); i++){
-        //     for(int j = 65; j < 91; j++){
-        //         if ((char)j != query.charAt(i)){ // would replace with another character
-        //             alternatives.add(query.substring(0, i) + (char)j + query.substring(i + 1, query.length()));
-        //         }
-        //     }
-        // }
 
         // Transpositions: Swap two adjacent characters.
         for(int i = 0; i < query.length() - 1; i++){
