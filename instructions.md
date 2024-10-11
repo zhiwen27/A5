@@ -74,7 +74,7 @@ Think about edge cases (like word endings and beginnings) and anything else that
 
 ## Phase 2 Details: SpellChecker
 
-The `SpellDictionary` class described above is not designed for user interaction.  That role falls to `SpellChecker`:  its primary job is to interact with the user. Ideally, there willl be two modes: one where it checks words read in as arguments, and another where it checks all words contained in a file.  Both modes of operation will be initiated via the command line.
+The `SpellDictionary` class described above is not designed for user interaction.  That role falls to `SpellChecker`:  its primary job is to interact with the user. Ideally, there will be two modes: one where it checks words read in as arguments, and another where it checks all words contained in a file.  Both modes of operation will be initiated via the command line.
 
 ### Words Provided as Arguments
 

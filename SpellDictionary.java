@@ -20,6 +20,7 @@ public class SpellDictionary implements SpellingOperations{
     }
     public boolean containsWord(String query){
         query = query.toLowerCase(); // convert the input to lower case
+        query = query.replaceAll("(?!['])\\p{Punct}", ""); // ignore all the punctuations except for " ' "
         for (String s: this.storage){
             if (s.equals(query)){
                 return true;
@@ -32,6 +33,7 @@ public class SpellDictionary implements SpellingOperations{
         // Create a hashset to store all the possible alternatives and store non-repeated words
         HashSet<String> alternatives = new HashSet<>();
         query = query.toLowerCase(); // convert the input to lower case
+        query = query.replaceAll("(?!['])\\p{Punct}", ""); // ignore all the punctuations except for " ' "
         // Deletions: Delete one letter from the word.
         for(int i = 0; i < query.length(); i++){
             String temp = query.substring(0, i) + query.substring(i+1, query.length());
@@ -104,6 +106,31 @@ public class SpellDictionary implements SpellingOperations{
 
     public static void main(String[] args) {
         SpellDictionary a = new SpellDictionary("words.txt");
-        a.nearMisses("ab");
+        ArrayList<String> returning = new ArrayList<>();
+        // Test for containsWord()
+        System.err.print("Test for containsWord(), see if it ignores punctuation and capitalization:" + "\n" + "Input: Flew." + "\n" + "Output: ");
+        System.err.println(a.containsWord("Flew."));
+        // Tests for different styles in nearMisses()
+        returning = a.nearMisses("qeust");
+        System.err.print("Test for swapping characters: qeust -> quest" + "\n" + "Input: qeust" + "\n" + "Suggestions: ");
+        for(String s:returning){
+            System.err.println(s);
+        }
+        returning = a.nearMisses("qiet");
+        System.err.print("Test for adding and substituting characters: qiet -> quiet diet" + "\n" + "Input: qiet" + "\n" + "Suggestions: ");
+        for(String s:returning){
+            System.err.print(s + " ");
+        }
+        System.err.println();
+        returning = a.nearMisses("qeust.");
+        System.err.print("Test for punctuation: qeust. -> quest" + "\n" + "Input: qeust." + "\n" + "Suggestions: ");
+        for(String s:returning){
+            System.err.println(s);
+        }
+        returning = a.nearMisses("abatements");
+        System.err.print("Test for splitting characters (adding ' in between, a supplement of splitting with spaces): abatements -> abatements's (abatement)" + "\n" + "Input: abatements" + "\n" + "Suggestions: ");
+        for(String s:returning){
+            System.err.print(s + " ");
+        }
     }
 }

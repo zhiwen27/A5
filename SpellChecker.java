@@ -10,7 +10,9 @@ public class SpellChecker {
      */
     public static void modeCommandLine(String inputLine){
         SpellDictionary dict = new SpellDictionary("words.txt");
-        String[] input = inputLine.split(" ");
+        // ignore all the punctuations except for " ' "
+        String cleanedInputLine = inputLine.replaceAll("(?!['])\\p{Punct}", "");
+        String[] input = cleanedInputLine.split(" ");
         for(String s: input){
             if (!dict.containsWord(s)){
                 System.out.println("Not found: " + s);
@@ -40,6 +42,7 @@ public class SpellChecker {
         SpellDictionary dict = new SpellDictionary("words.txt");
         Scanner sc = new Scanner(System.in);
         // making sure that the ``Scanner`` skips over punctuation marks except for " ' "
+        // for example, would not ignore " ' " in the word "grow'st", and would give suggestion as: none
         HashSet<String> inputStorage = new HashSet<>();
         while (sc.hasNextLine()) {
             String temp = sc.next();
@@ -48,7 +51,6 @@ public class SpellChecker {
                 inputStorage.add(cleanedTemp);
             }
         }
-        // ❗️ " ' " in words: grow'st?
         Iterator<String> iterator = inputStorage.iterator();
         while(iterator.hasNext()){
             String s = iterator.next();
