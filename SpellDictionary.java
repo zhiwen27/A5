@@ -14,12 +14,12 @@ public class SpellDictionary implements SpellingOperations{
             System.exit(-1);
         }
         while (file.hasNextLine()) {
-            storage.add(file.next().toLowerCase());
+            storage.add(file.next().toLowerCase()); // convert all the words to the lower case
         }
         file.close();
     }
     public boolean containsWord(String query){
-        query = query.toLowerCase();
+        query = query.toLowerCase(); // convert the input to lower case
         for (String s: this.storage){
             if (s.equals(query)){
                 return true;
@@ -28,12 +28,14 @@ public class SpellDictionary implements SpellingOperations{
         return false;
     }
     public ArrayList<String> nearMisses(String query){
+
+        // Create a hashset to store all the possible alternatives and store non-repeated words
         HashSet<String> alternatives = new HashSet<>();
-        query = query.toLowerCase();
+        query = query.toLowerCase(); // convert the input to lower case
         // Deletions: Delete one letter from the word.
         for(int i = 0; i < query.length(); i++){
             String temp = query.substring(0, i) + query.substring(i+1, query.length());
-            if (!alternatives.contains(temp)){
+            if (!alternatives.contains(temp)){ // check if there are duplicate values
                 alternatives.add(temp);
             }
         }
@@ -88,7 +90,7 @@ public class SpellDictionary implements SpellingOperations{
             }
         }
 
-        // return the ones that are contained in the dictionary
+        // return the ones that are contained in the dictionary with an arraylist
         ArrayList<String> returning = new ArrayList<>();
         Iterator<String> iterator = alternatives.iterator();
         while(iterator.hasNext()){

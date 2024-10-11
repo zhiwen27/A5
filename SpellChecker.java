@@ -3,6 +3,11 @@ import java.util.*;
 
 public class SpellChecker {
 
+    /**
+     * Method for mode 1: When command line arguments are provided, prints a message about every word,
+     * indicating whether it is correct or not, and makes suggestions for incorrect words
+     * @param inputLine provided command line argument
+     */
     public static void modeCommandLine(String inputLine){
         SpellDictionary dict = new SpellDictionary("words.txt");
         String[] input = inputLine.split(" ");
@@ -27,6 +32,10 @@ public class SpellChecker {
         }
     }
 
+    /**
+     * Method for mode 2: Taking inputs from a file. Read individual words and check their spelling. 
+     * If a word is misspelt, print a message and offer suggestions.
+     */
     public static void modeReadFile(){
         SpellDictionary dict = new SpellDictionary("words.txt");
         Scanner sc = new Scanner(System.in);
