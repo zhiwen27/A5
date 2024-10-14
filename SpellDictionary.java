@@ -5,6 +5,10 @@ import java.util.*;
 public class SpellDictionary implements SpellingOperations{
 
     public HashSet<String> storage = new HashSet<>();
+    /**
+     * Constructor for the class
+     * @param input the name of the file (dictionary)
+     */
     public SpellDictionary(String input){
         Scanner file = null;
         try {
@@ -18,6 +22,11 @@ public class SpellDictionary implements SpellingOperations{
         }
         file.close();
     }
+    /**
+     * Input a word and check if it is contained in the dictionary
+     * @param query the String input
+     * @return if the word is contained in the dictionary
+     */
     public boolean containsWord(String query){
         query = query.toLowerCase(); // convert the input to lower case
         query = query.replaceAll("(?!['])\\p{Punct}", ""); // ignore all the punctuations except for " ' "

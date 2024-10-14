@@ -1,0 +1,3 @@
+kudos to people who were especially helpful: Yuyao Zhu
+For this assignment, I think it is very challenging to think about the edge cases and to fix the code correspondingly. It is also good to learn about how to read in a file using the command line.
+For the methods in the nearMisses, especially for insertion, substitution and split, I had a " ' " inserted and substituted aside from the letters into the words by thinking about edge cases and discussing them with Yuyao.
