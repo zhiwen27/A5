@@ -43,7 +43,7 @@ public class SpellChecker {
         Scanner sc = new Scanner(System.in);
         // making sure that the ``Scanner`` skips over punctuation marks except for " ' "
         // for example, would not ignore " ' " in the word "grow'st", and would give suggestion as: none
-        HashSet<String> inputStorage = new HashSet<>();
+        ArrayList<String> inputStorage = new ArrayList<>();
         while (sc.hasNextLine()) {
             String temp = sc.next();
             String cleanedTemp = temp.replaceAll("(?!['])\\p{Punct}", "");
@@ -62,8 +62,13 @@ public class SpellChecker {
                     System.out.println("none");
                 }
                 else{
-                    for(String a: returning){
-                        System.out.print(a + " ");
+                    for(int i = 0; i < returning.size(); i++){
+                        if(i != (returning.size() - 1)){
+                            System.err.print(returning.get(i) + ", ");
+                        }
+                        else{
+                            System.err.print(returning.get(i));
+                        }
                     }
                     System.out.println();
                 }

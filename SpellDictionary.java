@@ -37,18 +37,22 @@ public class SpellDictionary implements SpellingOperations{
         // Deletions: Delete one letter from the word.
         for(int i = 0; i < query.length(); i++){
             String temp = query.substring(0, i) + query.substring(i+1, query.length());
-            if (!alternatives.contains(temp)){ // check if there are duplicate values
+            if(this.storage.contains(temp)){
                 alternatives.add(temp);
             }
         }
 
-        // Insertions: Insert one letter of lower case into the word at any point.
+        // Insertions: Insert one letter of lower case into the word at any point, including " ' ".
         for(int i = 0; i < query.length() + 1; i++){
             for(int j = 97; j < 123; j++){
                 String temp = query.substring(0, i) + (char)j + query.substring(i, query.length());
-                if (!alternatives.contains(temp)){
+                if(this.storage.contains(temp)){
                     alternatives.add(temp);
                 }
+            }
+            String temp = query.substring(0, i) + "'" + query.substring(i, query.length());
+            if(this.storage.contains(temp)){
+                alternatives.add(temp);
             }
         }
 
@@ -57,10 +61,14 @@ public class SpellDictionary implements SpellingOperations{
             for(int j = 97; j < 123; j++){
                 if ((char)j != query.charAt(i)){ // would replace with another character
                     String temp = query.substring(0, i) + (char)j + query.substring(i + 1, query.length());
-                    if (!alternatives.contains(temp)){
+                    if(this.storage.contains(temp)){
                         alternatives.add(temp);
                     }
                 }
+            }
+            String temp = query.substring(0, i) + "'" + query.substring(i + 1, query.length());
+            if(this.storage.contains(temp)){
+                alternatives.add(temp);
             }
         }
 
@@ -69,7 +77,7 @@ public class SpellDictionary implements SpellingOperations{
             Character tempElement = query.charAt(i);
             String temp = query.substring(0, i) + query.charAt(i + 1) + query.substring(i + 1, query.length());
             String swapped = temp.substring(0, i + 1) + tempElement + temp.substring(i + 2, query.length());
-            if (!alternatives.contains(swapped)){
+            if(this.storage.contains(swapped)){
                 alternatives.add(swapped);
             }
         }
@@ -77,9 +85,10 @@ public class SpellDictionary implements SpellingOperations{
         // Splits: Divide the word into two legal words. For this kind of near miss, the pair of words together should be recorded
         // as a single entry, with a space between them. 
         for(int i = 1; i < query.length(); i++){
-            String temp = query.substring(0, i) + " " + query.substring(i, query.length());
-            if (!alternatives.contains(temp)){
-                alternatives.add(temp);
+            String before = query.substring(0, i);
+            String after = query.substring(i, query.length());
+            if ((this.storage.contains(before)) && (this.storage.contains(after))){
+                alternatives.add(before + " and " + after);
             }
         }
 
@@ -87,7 +96,7 @@ public class SpellDictionary implements SpellingOperations{
         // as a single entry, with a " ' " between them. 
         for(int i = 1; i < query.length(); i++){
             String temp = query.substring(0, i) + "'" + query.substring(i, query.length());
-            if (!alternatives.contains(temp)){
+            if(this.storage.contains(temp)){
                 alternatives.add(temp);
             }
         }
@@ -97,9 +106,7 @@ public class SpellDictionary implements SpellingOperations{
         Iterator<String> iterator = alternatives.iterator();
         while(iterator.hasNext()){
             String temp = iterator.next();
-            if(this.storage.contains(temp)){
-                returning.add(temp);
-            }
+            returning.add(temp);
         }
         return returning;
     }
@@ -128,7 +135,7 @@ public class SpellDictionary implements SpellingOperations{
             System.err.println(s);
         }
         returning = a.nearMisses("abatements");
-        System.err.print("Test for splitting characters (adding ' in between, a supplement of splitting with spaces): abatements -> abatements's (abatement)" + "\n" + "Input: abatements" + "\n" + "Suggestions: ");
+        System.err.print("Test for splitting characters (adding ' in between, a supplement of splitting with spaces): abatements -> abatement abatement and s abatement's)" + "\n" + "Input: abatements" + "\n" + "Suggestions: ");
         for(String s:returning){
             System.err.print(s + " ");
         }
