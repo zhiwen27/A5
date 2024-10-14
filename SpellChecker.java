@@ -42,7 +42,6 @@ public class SpellChecker {
         SpellDictionary dict = new SpellDictionary("words.txt");
         Scanner sc = new Scanner(System.in);
         // making sure that the ``Scanner`` skips over punctuation marks except for " ' "
-        // for example, would not ignore " ' " in the word "grow'st", and would give suggestion as: none
         ArrayList<String> inputStorage = new ArrayList<>();
         while (sc.hasNextLine()) {
             String temp = sc.next();
