@@ -12,25 +12,22 @@ public class SpellChecker {
         SpellDictionary dict = new SpellDictionary("words.txt");
         // ignore all the punctuations except for " ' "
         String cleanedInputLine = inputLine.replaceAll("(?!['])\\p{Punct}", "");
-        String[] input = cleanedInputLine.split(" ");
-        for(String s: input){
-            if (!dict.containsWord(s)){
-                System.out.println("Not found: " + s);
-                System.out.print("Suggestions: ");
-                ArrayList<String> returning = dict.nearMisses(s);
-                if (returning.size() == 0){
-                    System.out.println("none");
-                }
-                else{
-                    for(String a: returning){
-                        System.out.print(a + " ");
-                    }
-                    System.out.println();
-                }
+        if (!dict.containsWord(cleanedInputLine)){
+            System.out.println("Not found: " + cleanedInputLine);
+            System.out.print("Suggestions: ");
+            ArrayList<String> returning = dict.nearMisses(cleanedInputLine);
+            if (returning.size() == 0){
+                System.out.println("none");
             }
             else{
-                System.err.println("'" + s + "' is spelled correctly.");
+                for(String a: returning){
+                    System.out.print(a + " ");
+                }
+                System.out.println();
             }
+        }
+        else{
+            System.err.println("'" + cleanedInputLine + "' is spelled correctly.");
         }
     }
 
@@ -81,12 +78,14 @@ public class SpellChecker {
         }
         else {
             String inputLine = "";
-            Scanner scanner = new Scanner(new StringReader(args[0]));
-            while (scanner.hasNext()) {
-                inputLine += scanner.next() + " ";
+            for(int i = 0; i < args.length; i++){
+                Scanner scanner = new Scanner(new StringReader(args[i]));
+                while (scanner.hasNext()) {
+                    inputLine = scanner.next();
+                }
+                scanner.close();
+                SpellChecker.modeCommandLine(inputLine);
             }
-            scanner.close();
-            SpellChecker.modeCommandLine(inputLine);
         }
     }
 }
