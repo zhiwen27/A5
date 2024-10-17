@@ -11,7 +11,7 @@ public class SpellChecker {
     public static void modeCommandLine(String inputLine){
         SpellDictionary dict = new SpellDictionary("words.txt");
         // ignore all the punctuations except for " ' "
-        String cleanedInputLine = inputLine.replaceAll("(?!['])\\p{Punct}", "");
+        String cleanedInputLine = inputLine.replaceAll("(\\p{Punct}", "");
         if (!dict.containsWord(cleanedInputLine)){
             System.out.println("Not found: " + cleanedInputLine);
             System.out.print("Suggestions: ");
